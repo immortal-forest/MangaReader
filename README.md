@@ -1,0 +1,2 @@
+# MangaReader
+Manga Reader app
