@@ -1,5 +1,6 @@
 package com.ali.mangareader.api;
 
+import com.ali.mangareader.model.ChapterImage;
 import com.ali.mangareader.model.InfoManga;
 import com.ali.mangareader.model.RecentManga;
 
@@ -17,4 +18,7 @@ public interface MangaScraperApi {
 
     @GET("info")
     Call<InfoManga> getInfo(@Query("url") String url, @Query("site") String site);
+
+    @GET("chapter-imgs")
+    Call<ChapterImage> getChapterImages(@Query("url") String url, @Query("site") String site);
 }

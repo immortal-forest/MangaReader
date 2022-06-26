@@ -47,13 +47,12 @@ public class Recent {
                     return;
                 }
                 data = response.body();
-                Toast.makeText(context, "Request Success!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Request Success!", Toast.LENGTH_SHORT).show();
                 MainActivity.mangaReaderData.setMangas(data);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recentCardAdapter = new RecentCardAdapter(context, data, new RecentCardAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(RecentManga manga) {
-                        System.out.println(manga.getTitle());
                         context.startActivity(new Intent(context, InfoActivity.class)
                                 .putExtra("manga_url", manga.getUrl())
                                 .putExtra("site", "manganato"));

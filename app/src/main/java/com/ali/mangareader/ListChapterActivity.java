@@ -2,6 +2,7 @@ package com.ali.mangareader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ public class ListChapterActivity extends AppCompatActivity {
 
     private ChapterListCardAdapter chapterListCardAdapter;
     private ListView chapterList;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,14 @@ public class ListChapterActivity extends AppCompatActivity {
         for (String i: list) {
             chapters.add(new Chapter(Arrays.asList(i.split("@"))));
         }
+        context = this;
         chapterListCardAdapter = new ChapterListCardAdapter(this, chapters, new ChapterListCardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Chapter chapter) {
-                System.out.println(chapter.getChapterName());
+                startActivity(new Intent(context, ChapterActivity.class)
+                .putExtra("url", chapter.getChapterUrl())
+                .putExtra("name", chapter.getChapterName())
+                .putExtra("site", "manganato"));
             }
         });
         chapterList.setAdapter(chapterListCardAdapter);

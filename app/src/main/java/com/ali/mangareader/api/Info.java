@@ -50,7 +50,7 @@ public class Info {
                     return;
                 }
                 info = response.body();
-                Toast.makeText(context, "Request Success!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Request Success!", Toast.LENGTH_SHORT).show();
                 MainActivity.mangaReaderData.setManga(info);
                 Picasso.get().load(info.getCover()).into(coverImage);
                 infoTitle.setText(info.getTitle());
@@ -104,7 +104,6 @@ public class Info {
                 for (List<String> chapter: info.getChapters()) {
                     chapters += chapter.get(0) + "@" + chapter.get(1) + "@" + chapter.get(2) + "&&";
                 }
-                System.out.println(chapters);
                 String finalChapters = chapters;
                 infoChaptersBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,19 +112,11 @@ public class Info {
                         .putExtra("chapters", finalChapters));
                     }
                 });
-//                infoCardAdapter = new InfoCardAdapter(context, chapters, new InfoCardAdapter.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(Chapter chapter) {
-//                        System.out.println(chapter.getChapterName());
-//                    }
-//                });
-//                infoChapters.setAdapter(infoCardAdapter);
                 progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<InfoManga> call, Throwable t) {
-                t.printStackTrace();
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
                 return;
             }
