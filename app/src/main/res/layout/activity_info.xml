@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:theme="@style/Theme.MangaReader"
     android:nestedScrollingEnabled="true"
     android:fillViewport="true"
     tools:context=".InfoActivity">
@@ -32,7 +32,6 @@
             android:singleLine="false"
             android:text="Manga Name"
             android:textAlignment="viewStart"
-            android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold">
 
@@ -46,7 +45,6 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Alternative Name"
-            android:textColor="@color/black"
             android:textAlignment="viewStart"
             android:textStyle="italic"
             android:textSize="18sp">
@@ -62,8 +60,7 @@
             android:layout_height="wrap_content"
             android:text="Authors"
             android:textSize="18sp"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black">
+            android:textAlignment="viewStart">
 
         </TextView>
         <TextView
@@ -75,7 +72,6 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Gener"
-            android:textColor="@color/black"
             android:textAlignment="viewStart"
             android:textSize="18sp">
 
@@ -90,7 +86,6 @@
             android:layout_height="wrap_content"
             android:text="Status"
             android:textSize="18sp"
-            android:textColor="@color/black"
             android:textAlignment="viewStart">
 
         </TextView>
@@ -104,7 +99,6 @@
             android:layout_height="wrap_content"
             android:text="Plot"
             android:textAlignment="viewStart"
-            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold">
 
@@ -119,7 +113,6 @@
             android:text="Plot text"
             android:textStyle="italic"
             android:textSize="20sp"
-            android:textColor="@color/black"
             android:textAlignment="viewStart">
 
         </TextView>
@@ -132,7 +125,6 @@
             android:layout_height="wrap_content"
             android:text="Chapters"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold">
 

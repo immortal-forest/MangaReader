@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="HardcodedText"
+    android:theme="@style/Theme.MangaReader"
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dp"
-        android:background="@color/white">
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 
