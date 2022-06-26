@@ -7,7 +7,7 @@
     android:layout_marginTop="3dp"
     app:cardElevation="10dp">
     <RelativeLayout
-        android:background="@color/white"
+        android:background="@color/grey"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,7 +18,7 @@
             android:layout_height="30dp"
             android:text="Chapter Name"
             android:textAlignment="viewStart"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:ellipsize="marquee"
             android:singleLine="true"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Upload date"
             android:textAlignment="viewEnd"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp">
 
         </TextView>

@@ -123,29 +123,21 @@
             android:textAlignment="viewStart">
 
         </TextView>
-        <TextView
-            android:id="@+id/chapters"
-            android:layout_below="@+id/info_plot"
-            android:layout_marginTop="18dp"
-            android:layout_marginLeft="10dp"
+        <Button
+            android:id="@+id/chapter_btn"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chapters"
-            android:textAlignment="viewStart"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold">
 
-        </TextView>
-        <ListView
-            android:id="@+id/info_chapters"
-            android:layout_below="@+id/chapters"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp">
+        </Button>
 
-        </ListView>
 
 
     </RelativeLayout>

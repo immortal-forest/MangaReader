@@ -9,12 +9,10 @@ import android.widget.TextView;
 
 import com.ali.mangareader.R;
 import com.ali.mangareader.model.Chapter;
-import com.ali.mangareader.model.InfoManga;
-import com.ali.mangareader.model.RecentManga;
 
 import java.util.List;
 
-public class InfoCardAdapter extends BaseAdapter {
+public class ChapterListCardAdapter extends BaseAdapter {
     private List<Chapter> chapterList;
     Context context;
     OnItemClickListener listener;
@@ -23,7 +21,7 @@ public class InfoCardAdapter extends BaseAdapter {
         void onItemClick(Chapter chapter);
     }
 
-    public InfoCardAdapter(Context context, List<Chapter> chapters, OnItemClickListener listener) {
+    public ChapterListCardAdapter(Context context, List<Chapter> chapters, OnItemClickListener listener) {
         this.chapterList = chapters;
         this.context = context;
         this.listener = listener;
@@ -46,7 +44,7 @@ public class InfoCardAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View myView = LayoutInflater.from(context).inflate(R.layout.info_chapter_item, null);
+        View myView = LayoutInflater.from(context).inflate(R.layout.list_chapter_item, null);
         TextView chapterName = myView.findViewById(R.id.chapter_name);
         TextView chapterDate = myView.findViewById(R.id.chapter_date);
         chapterName.setText(chapterList.get(i).getChapterName());

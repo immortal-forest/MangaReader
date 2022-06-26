@@ -12,13 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangaReader">
         <activity
+            android:name=".ChapterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListChapterActivity"
+            android:exported="false"
+            android:parentActivityName=".InfoActivity" />
+        <activity
             android:name=".InfoActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
-        <activity
             android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

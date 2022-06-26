@@ -2,16 +2,18 @@ package com.ali.mangareader.api;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ali.mangareader.ListChapterActivity;
 import com.ali.mangareader.MainActivity;
-import com.ali.mangareader.adapter.InfoCardAdapter;
+import com.ali.mangareader.adapter.ChapterListCardAdapter;
 import com.ali.mangareader.model.Chapter;
 import com.ali.mangareader.model.InfoManga;
 import com.ali.mangareader.utils.JoinList;
@@ -30,11 +32,10 @@ public class Info {
 
     InfoManga info;
     JoinList joinList;
-    InfoCardAdapter infoCardAdapter;
 
     public void getMangaInfo(Context context, ImageView coverImage, TextView infoTitle, TextView infoAlternative,
                              TextView infoAuthor, TextView infoGenre, TextView infoStatus, TextView infoPlot,
-                             ListView infoChapters, ProgressDialog progressDialog, String url, String site) {
+                             Button infoChaptersBtn, ProgressDialog progressDialog, String url, String site) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://manga-scraper-api.pgamer.repl.co/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -99,17 +100,26 @@ public class Info {
                 else {
                     infoPlot.setText(info.getPlot());
                 }
-                List<Chapter> chapters = new ArrayList<>();
+                String chapters = "";
                 for (List<String> chapter: info.getChapters()) {
-                    chapters.add(new Chapter(chapter));
+                    chapters += chapter.get(0) + "@" + chapter.get(1) + "@" + chapter.get(2) + "&&";
                 }
-                infoCardAdapter = new InfoCardAdapter(context, chapters, new InfoCardAdapter.OnItemClickListener() {
+                System.out.println(chapters);
+                String finalChapters = chapters;
+                infoChaptersBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onItemClick(Chapter chapter) {
-                        System.out.println(chapter.getChapterName());
+                    public void onClick(View view) {
+                        context.startActivity(new Intent(context, ListChapterActivity.class)
+                        .putExtra("chapters", finalChapters));
                     }
                 });
-                infoChapters.setAdapter(infoCardAdapter);
+//                infoCardAdapter = new InfoCardAdapter(context, chapters, new InfoCardAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(Chapter chapter) {
+//                        System.out.println(chapter.getChapterName());
+//                    }
+//                });
+//                infoChapters.setAdapter(infoCardAdapter);
                 progressDialog.dismiss();
             }
 

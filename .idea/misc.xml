@@ -7,8 +7,10 @@
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/round_outline.xml" value="0.165" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_info.xml" value="0.22780797101449277" />
+        <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_list_chapter.xml" value="0.22780797101449277" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_main.xml" value="0.22780797101449277" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/info_chapter_item.xml" value="0.22780797101449277" />
+        <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/list_chapter_item.xml" value="0.22780797101449277" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/recent_list_item.xml" value="0.2" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/menu/navigation_menu.xml" value="0.25729166666666664" />
       </map>
