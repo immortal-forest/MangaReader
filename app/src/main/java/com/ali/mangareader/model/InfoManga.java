@@ -10,7 +10,7 @@ public class InfoManga {
     @SerializedName("Authors")
     private List<String> authors;
     @SerializedName("Chapters")
-    private List<Chapter> chapters;
+    private List<List<String>> chapters;
     @SerializedName("Cover")
     private String cover;
     @SerializedName("Genre")
@@ -22,7 +22,7 @@ public class InfoManga {
     @SerializedName("Title")
     private String title;
 
-    public InfoManga(List<String> alternativeName, List<String> authors, List<Chapter> chapters, String cover, List<String> genre, String plot, String status, String title) {
+    public InfoManga(List<String> alternativeName, List<String> authors, List<List<String>> chapters, String cover, List<String> genre, String plot, String status, String title) {
         this.alternativeName = alternativeName;
         this.authors = authors;
         this.chapters = chapters;
@@ -41,7 +41,7 @@ public class InfoManga {
         return authors;
     }
 
-    public List<Chapter> getChapters() {
+    public List<List<String>> getChapters() {
         return chapters;
     }
 

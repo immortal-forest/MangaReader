@@ -5,9 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:layout_marginTop="3dp"
-    android:elevation="5dp">
+    app:cardElevation="10dp">
     <RelativeLayout
-        android:background="@color/blue"
+        android:background="@color/white"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,8 +18,12 @@
             android:layout_height="30dp"
             android:text="Chapter Name"
             android:textAlignment="viewStart"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
             android:textStyle="italic">
 
         </TextView>
@@ -34,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Upload date"
             android:textAlignment="viewEnd"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp">
 
         </TextView>

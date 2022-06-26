@@ -4,19 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ali.mangareader.adapter.RecentCardAdapter;
 import com.ali.mangareader.api.Recent;
-import com.ali.mangareader.model.RecentManga;
 
 import java.util.List;
 
@@ -33,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Fetching response from the server");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
         getSupportActionBar().setTitle("Latest Updates");
         drawerLayout = findViewById(R.id.nav_drawer);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF6200EE")));
-        initializeCardView();
+        initializeCardView(progress);
 
     }
 
@@ -53,19 +55,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void initializeCardView() {
+    void initializeCardView(ProgressDialog progress) {
         recyclerView = findViewById(R.id.recent_manga);
-        recent.getRecentManga(this, "1", "manganato");
-        while (!mangaReaderData.getMangas().isEmpty()) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recentCardAdapter = new RecentCardAdapter(this, mangaReaderData.getMangas(), new RecentCardAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(RecentManga manga) {
-                    System.out.println(manga.getTitle());
-                }
-            });
-            recyclerView.setAdapter(recentCardAdapter);
-        }
+        recent.getRecentManga(this, recyclerView, progress, "3", "manganato");
 
 
     }

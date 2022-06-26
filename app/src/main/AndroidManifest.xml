@@ -13,8 +13,10 @@
         android:theme="@style/Theme.MangaReader">
         <activity
             android:name=".InfoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
         <activity
+            android:launchMode="singleTask"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

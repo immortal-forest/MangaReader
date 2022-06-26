@@ -1,9 +1,24 @@
 package com.ali.mangareader.api;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Build;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ali.mangareader.MainActivity;
+import com.ali.mangareader.adapter.InfoCardAdapter;
+import com.ali.mangareader.model.Chapter;
 import com.ali.mangareader.model.InfoManga;
+import com.ali.mangareader.utils.JoinList;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,8 +29,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Info {
 
     InfoManga info;
+    JoinList joinList;
+    InfoCardAdapter infoCardAdapter;
 
-    public void getMangaInfo(Context context, String url, String site) {
+    public void getMangaInfo(Context context, ImageView coverImage, TextView infoTitle, TextView infoAlternative,
+                             TextView infoAuthor, TextView infoGenre, TextView infoStatus, TextView infoPlot,
+                             ListView infoChapters, ProgressDialog progressDialog, String url, String site) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://manga-scraper-api.pgamer.repl.co/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -31,10 +50,72 @@ public class Info {
                 }
                 info = response.body();
                 Toast.makeText(context, "Request Success!", Toast.LENGTH_LONG).show();
+                MainActivity.mangaReaderData.setManga(info);
+                Picasso.get().load(info.getCover()).into(coverImage);
+                infoTitle.setText(info.getTitle());
+                // Alternative name
+                if (info.getAlternativeName().isEmpty()) {
+                    infoAlternative.setText("Updating");
+                }
+                else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        infoAlternative.setText(String.join(", ", info.getAlternativeName()));
+                    }
+                    else {
+                        infoAlternative.setText(joinList.join(info.getAlternativeName()));
+                    }
+                }
+                // Authors
+                if (info.getAuthors().isEmpty()) {
+                    infoAuthor.setText("Authors: Updating");
+                }
+                else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        infoAuthor.setText("Authors: " + String.join(", ", info.getAuthors()));
+                    }
+                    else {
+                        infoAuthor.setText("Authors: " + joinList.join(info.getAuthors()));
+                    }
+
+                }
+                // Genre
+                if (info.getGenre().isEmpty()) {
+                    infoGenre.setText("Genre: Updating");
+                }
+                else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        infoGenre.setText("Genre: " + String.join(", ", info.getGenre()));
+                    }
+                    else {
+                        infoGenre.setText("Genre" + joinList.join(info.getGenre()));
+
+                    }
+
+                }
+                infoStatus.setText("Status: " + info.getStatus());
+                if (info.getPlot().isEmpty()) {
+                    infoPlot.setText("Updating");
+                }
+                else {
+                    infoPlot.setText(info.getPlot());
+                }
+                List<Chapter> chapters = new ArrayList<>();
+                for (List<String> chapter: info.getChapters()) {
+                    chapters.add(new Chapter(chapter));
+                }
+                infoCardAdapter = new InfoCardAdapter(context, chapters, new InfoCardAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Chapter chapter) {
+                        System.out.println(chapter.getChapterName());
+                    }
+                });
+                infoChapters.setAdapter(infoCardAdapter);
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<InfoManga> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
                 return;
             }

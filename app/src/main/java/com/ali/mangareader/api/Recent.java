@@ -1,6 +1,8 @@
 package com.ali.mangareader.api;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ali.mangareader.InfoActivity;
 import com.ali.mangareader.MainActivity;
 import com.ali.mangareader.MangaReaderData;
 import com.ali.mangareader.R;
@@ -27,8 +30,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Recent {
 
     List<RecentManga> data = new ArrayList<>();
+    private RecentCardAdapter recentCardAdapter;
 
-    public void getRecentManga(Context context, String limit, String site) {
+    public void getRecentManga(Context context, RecyclerView recyclerView, ProgressDialog progress, String limit, String site) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://manga-scraper-api.pgamer.repl.co/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -45,6 +49,18 @@ public class Recent {
                 data = response.body();
                 Toast.makeText(context, "Request Success!", Toast.LENGTH_LONG).show();
                 MainActivity.mangaReaderData.setMangas(data);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recentCardAdapter = new RecentCardAdapter(context, data, new RecentCardAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(RecentManga manga) {
+                        System.out.println(manga.getTitle());
+                        context.startActivity(new Intent(context, InfoActivity.class)
+                                .putExtra("manga_url", manga.getUrl())
+                                .putExtra("site", "manganato"));
+                    }
+                });
+                recyclerView.setAdapter(recentCardAdapter);
+                progress.dismiss();
             }
 
             @Override

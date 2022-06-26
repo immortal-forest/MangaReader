@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dp"
-        android:background="@color/black">
+        android:background="@color/white">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -22,8 +22,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/navigation_menu"
-        android:background="@color/black"
-        app:itemTextColor="@color/white"/>
+        android:background="@color/white"
+        app:itemTextColor="@color/black"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

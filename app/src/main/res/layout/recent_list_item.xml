@@ -7,10 +7,10 @@
     android:layout_marginTop="3dp"
     android:layout_margin="3dp"
     android:clickable="true"
-    android:elevation="5dp">
+    app:cardElevation="18dp">
 
     <RelativeLayout
-        android:background="@color/blue"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

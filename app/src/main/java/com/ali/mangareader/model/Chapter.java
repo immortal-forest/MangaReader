@@ -8,7 +8,7 @@ public class Chapter {
     private String chapterUrl;
     private String chapterDate;
 
-    Chapter(List<String> chapter) {
+    public Chapter(List<String> chapter) {
         this.chapterName = chapter.get(0);
         this.chapterUrl = chapter.get(1);
         this.chapterDate = chapter.get(2);
