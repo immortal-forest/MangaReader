@@ -18,7 +18,7 @@ public class ChapterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter);
-        ProgressDialog progress = new ProgressDialog(this);
+        ProgressDialog progress = new ProgressDialog(this, R.style.DialogTheme);
         progress.setTitle("Loading");
         progress.setMessage("Fetching images from the server");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog

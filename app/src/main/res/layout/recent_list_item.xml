@@ -5,10 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     android:layout_marginTop="3dp"
-    android:theme="@style/Theme.MangaReader"
+    android:theme="@style/Theme.MangaReaderItem"
     android:layout_margin="3dp"
     android:clickable="true"
-    app:cardElevation="12dp">
+    app:cardElevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"

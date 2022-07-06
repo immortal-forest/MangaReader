@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ProgressDialog progress = new ProgressDialog(this);
+        ProgressDialog progress = new ProgressDialog(this, R.style.DialogTheme);
         progress.setTitle("Loading");
         progress.setMessage("Fetching response from the server");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
