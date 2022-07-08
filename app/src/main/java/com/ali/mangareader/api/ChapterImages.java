@@ -25,7 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ChapterImages {
 
     List<String> chapters;
-    LoadImage loadImage = new LoadImage();
 
     public void getChapterImage(Context context, LinearLayout chapterLayout, String url, String site, ProgressDialog progress) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -62,14 +61,15 @@ public class ChapterImages {
     }
 
     void setImages(Context context, List<String> chapters, LinearLayout chapterLayout, String site, ProgressDialog progress) {
-        List<ImageView> imageViews = new ArrayList<>();
+        //List<ImageView> imageViews = new ArrayList<>();
         int i = 0;
+        LoadImage loadImage = new LoadImage(context);
         while (i < chapters.size()) {
             ImageView imageView = new ImageView(context);
             imageView.setAdjustViewBounds(true);
-            imageViews.add(imageView);
+            //imageViews.add(imageView);
             chapterLayout.addView(imageView);
-            loadImage.setImage(context, chapters.get(i), imageView, site);
+            loadImage.setImage(chapters.get(i), imageView, site);
             i++;
         }
         progress.dismiss();

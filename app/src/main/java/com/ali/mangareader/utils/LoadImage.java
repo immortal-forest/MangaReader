@@ -16,7 +16,11 @@ import okhttp3.Response;
 
 public class LoadImage {
 
-    public void setImage(Context context, String url, ImageView imageView, String site) {
+    Context context;
+    Picasso picasso;
+
+    public LoadImage(Context context) {
+        this.context = context;
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -28,10 +32,12 @@ public class LoadImage {
                     }
                 })
                 .build();
-        Picasso picasso = new Picasso.Builder(context)
+        this.picasso = new Picasso.Builder(context)
                 .downloader(new OkHttp3Downloader(client))
                 .build();
+    }
 
+    public void setImage(String url, ImageView imageView, String site) {
         picasso.load(url).into(imageView);
 
     }
