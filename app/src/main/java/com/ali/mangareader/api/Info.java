@@ -4,16 +4,23 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Parcelable;
+import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ali.mangareader.ListChapterActivity;
-import com.ali.mangareader.MainActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.ali.mangareader.ChapterActivity;
+import com.ali.mangareader.R;
 import com.ali.mangareader.adapter.ChapterListCardAdapter;
+import com.ali.mangareader.adapter.GenreListGridAdapter;
 import com.ali.mangareader.model.Chapter;
 import com.ali.mangareader.model.InfoManga;
 import com.ali.mangareader.utils.JoinList;
@@ -32,10 +39,12 @@ public class Info {
 
     InfoManga info;
     JoinList joinList;
+    private ChapterListCardAdapter chapterListCardAdapter;
+    private GenreListGridAdapter genreListGridAdapter;
 
-    public void getMangaInfo(Context context, ImageView coverImage, TextView infoTitle, TextView infoAlternative,
-                             TextView infoAuthor, TextView infoGenre, TextView infoStatus, TextView infoPlot,
-                             Button infoChaptersBtn, ProgressDialog progressDialog, String url, String site) {
+    public void getMangaInfo(Context context, ImageView coverImage, ImageView secCover, TextView infoTitle,
+                             TextView infoExtra, TextView infoPlot, LinearLayout chapterList, RecyclerView infoGenre,
+                             ProgressDialog progressDialog, String url, String site) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://manga-scraper-api.pgamer.repl.co/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -51,67 +60,94 @@ public class Info {
                 }
                 info = response.body();
                 Toast.makeText(context, "Request Success!", Toast.LENGTH_SHORT).show();
-                MainActivity.mangaReaderData.setManga(info);
                 Picasso.get().load(info.getCover()).into(coverImage);
+                Picasso.get().load(info.getCover()).into(secCover);
                 infoTitle.setText(info.getTitle());
-                // Alternative name
-                if (info.getAlternativeName().isEmpty()) {
-                    infoAlternative.setText("Updating");
-                }
-                else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        infoAlternative.setText(String.join(", ", info.getAlternativeName()));
-                    }
-                    else {
-                        infoAlternative.setText(joinList.join(info.getAlternativeName()));
-                    }
-                }
-                // Authors
+                // Extra
+                String extra = "";
                 if (info.getAuthors().isEmpty()) {
-                    infoAuthor.setText("Authors: Updating");
+                   extra = "Updating" + "  •  " + info.getStatus();
                 }
                 else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        infoAuthor.setText("Authors: " + String.join(", ", info.getAuthors()));
+                        extra =  String.join(", ", info.getAuthors()) + "  •  " + info.getStatus();
                     }
                     else {
-                        infoAuthor.setText("Authors: " + joinList.join(info.getAuthors()));
+                        extra = joinList.join(info.getAuthors()) + "•" + info.getStatus();
                     }
 
                 }
-                // Genre
-                if (info.getGenre().isEmpty()) {
-                    infoGenre.setText("Genre: Updating");
-                }
-                else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        infoGenre.setText("Genre: " + String.join(", ", info.getGenre()));
-                    }
-                    else {
-                        infoGenre.setText("Genre" + joinList.join(info.getGenre()));
-
-                    }
-
-                }
-                infoStatus.setText("Status: " + info.getStatus());
+                infoExtra.setText(extra);
+                // Plot
                 if (info.getPlot().isEmpty()) {
-                    infoPlot.setText("Updating");
+                    infoPlot.setText("Updating" + "\n\n");
                 }
                 else {
-                    infoPlot.setText(info.getPlot());
+                    infoPlot.setText(info.getPlot() + "\n\n");
                 }
-                String chapters = "";
-                for (List<String> chapter: info.getChapters()) {
-                    chapters += chapter.get(0) + "@" + chapter.get(1) + "@" + chapter.get(2) + "&&";
+                String alName = "<b>Alternative Names:</b> ";
+                if (info.getAlternativeName().isEmpty()) {
+                    alName += "Updating";
                 }
-                String finalChapters = chapters;
-                infoChaptersBtn.setOnClickListener(new View.OnClickListener() {
+                else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        alName += String.join(", ", info.getAlternativeName());
+                    }
+                    else {
+                        alName += joinList.join(info.getAlternativeName());
+                    }
+                }
+                infoPlot.append(Html.fromHtml(alName));
+                LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                infoGenre.setLayoutManager(layoutManager);
+                genreListGridAdapter = new GenreListGridAdapter(context, info.getGenre(), new GenreListGridAdapter.OnItemClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        context.startActivity(new Intent(context, ListChapterActivity.class)
-                        .putExtra("chapters", finalChapters));
+                    public void onItemClick(String name) {
+                        Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
                     }
                 });
+                infoGenre.setAdapter(genreListGridAdapter);
+//                genreListGridAdapter = new GenreListGridAdapter(context, info.getGenre(), new GenreListGridAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(String name) {
+//                        Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                infoGenre.setAdapter(genreListGridAdapter);
+                List<Chapter> chaptersList = new ArrayList<>();
+                for (List<String> i: info.getChapters()) {
+                    chaptersList.add(new Chapter(i));
+                }
+
+                for (Chapter i: chaptersList) {
+                    View vi = LayoutInflater.from(context).inflate(R.layout.list_chapter_item, null);
+                    TextView chapterName = vi.findViewById(R.id.chapter_name);
+                    chapterName.setText(i.getChapterName());
+                    TextView chapterDate = vi.findViewById(R.id.chapter_date);
+                    chapterDate.setText(i.getChapterDate());
+                    vi.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            context.startActivity(new Intent(context, ChapterActivity.class)
+                                .putExtra("url", i.getChapterUrl())
+                                .putExtra("name", i.getChapterName())
+                                .putExtra("site", "manganato"));
+                        }
+                    });
+                    chapterList.addView(vi);
+                }
+//
+//                chapterListCardAdapter = new ChapterListCardAdapter(context, chaptersList, new ChapterListCardAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(Chapter chapter) {
+//                        context.startActivity(new Intent(context, ChapterActivity.class)
+//                                .putExtra("url", chapter.getChapterUrl())
+//                                .putExtra("name", chapter.getChapterName())
+//                                .putExtra("site", "manganato"));
+//                    }
+//                });
+//                chapterList.setAdapter(chapterListCardAdapter);
+
                 progressDialog.dismiss();
             }
 

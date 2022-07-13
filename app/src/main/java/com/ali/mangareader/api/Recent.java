@@ -3,8 +3,6 @@ package com.ali.mangareader.api;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,13 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ali.mangareader.InfoActivity;
 import com.ali.mangareader.MainActivity;
-import com.ali.mangareader.MangaReaderData;
-import com.ali.mangareader.R;
 import com.ali.mangareader.adapter.RecentCardAdapter;
 import com.ali.mangareader.model.RecentManga;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,7 +43,6 @@ public class Recent {
                 }
                 data = response.body();
                 Toast.makeText(context, "Request Success!", Toast.LENGTH_SHORT).show();
-                MainActivity.mangaReaderData.setMangas(data);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recentCardAdapter = new RecentCardAdapter(context, data, new RecentCardAdapter.OnItemClickListener() {
                     @Override

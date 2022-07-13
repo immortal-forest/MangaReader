@@ -6,11 +6,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.ali.mangareader.api.ChapterImages;
 
 public class ChapterActivity extends AppCompatActivity {
 
+    ScrollView chapterScrollView;
     LinearLayout chapterLayout;
     ChapterImages chapterImages = new ChapterImages();
 
@@ -24,6 +26,8 @@ public class ChapterActivity extends AppCompatActivity {
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
         chapterLayout = findViewById(R.id.chapter_layout);
+        chapterScrollView = findViewById(R.id.chapter_scroll_view);
+        chapterScrollView.setSmoothScrollingEnabled(true);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String url = bundle.getString("url");

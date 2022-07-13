@@ -5,14 +5,16 @@
       <map>
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/curve.xml" value="0.165" />
+        <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/dot.xml" value="0.165" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/info_semi_circle.xml" value="0.165" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/round_outline.xml" value="0.165" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/drawable/semi_circle.xml" value="0.165" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_chapter.xml" value="0.1" />
-        <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_info.xml" value="0.22780797101449277" />
+        <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_info.xml" value="0.264" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_list_chapter.xml" value="0.22780797101449277" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/activity_main.xml" value="0.22780797101449277" />
+        <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/genre_item.xml" value="0.264" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/info_chapter_item.xml" value="0.22780797101449277" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/list_chapter_item.xml" value="0.22780797101449277" />
         <entry key="..\:/Code/Apps/MangaReader/app/src/main/res/layout/recent_list_item.xml" value="0.2" />

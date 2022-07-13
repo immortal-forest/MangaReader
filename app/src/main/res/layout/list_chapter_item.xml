@@ -2,14 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
-    android:theme="@style/Theme.MangaReaderItem"
-    android:layout_marginBottom="8dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="8dp">
+    android:layout_marginTop="3dp"
+    android:theme="@style/Theme.MangaReaderItem">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,28 +13,30 @@
             android:id="@+id/chapter_name"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Chapter Name"
+            android:layout_marginLeft="8dp"
+            android:text=""
             android:textAlignment="viewStart"
             android:textSize="20sp"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            android:textStyle="italic">
+            android:textStyle="normal">
 
         </TextView>
         <TextView
             android:id="@+id/chapter_date"
             android:layout_below="@+id/chapter_name"
             android:layout_marginTop="4dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
             android:layout_marginBottom="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload date"
+            android:text=""
             android:textAlignment="viewEnd"
-            android:textSize="18sp">
+            android:textStyle="italic"
+            android:textSize="16sp">
 
         </TextView>
     </RelativeLayout>

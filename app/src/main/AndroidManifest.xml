@@ -16,11 +16,6 @@
             android:exported="false"
             android:parentActivityName=".ListChapterActivity" />
         <activity
-            android:name=".ListChapterActivity"
-            android:exported="false"
-            android:parentActivityName=".InfoActivity"
-            android:launchMode="singleTask" />
-        <activity
             android:name=".InfoActivity"
             android:exported="false"
             android:launchMode="singleTask"

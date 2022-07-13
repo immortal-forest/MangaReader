@@ -1,15 +1,21 @@
 package com.ali.mangareader;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ali.mangareader.adapter.ChapterListCardAdapter;
@@ -20,12 +26,14 @@ import com.ali.mangareader.utils.JoinList;
 public class InfoActivity extends AppCompatActivity {
 
     private Info info = new Info();
-    ImageView coverImage;
-    TextView infoTitle, infoAlternative, infoAuthor, infoGenre, infoStatus, infoPlot;
+    ImageView infoCover, secCover;
+    TextView infoTitle, infoExtra, infoPlot;
+    LinearLayout chapterList;
+    ScrollView scrollView;
+    RecyclerView infoGenre;
     InfoManga manga;
     JoinList joinList;
-    Button infoChaptersBtn;
-
+    String dot = "•";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +44,50 @@ public class InfoActivity extends AppCompatActivity {
         progress.setMessage("Fetching response from the server");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
-        getSupportActionBar().setTitle("Info");
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF6200EE")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        coverImage = findViewById(R.id.info_cover);
+
+        infoCover = findViewById(R.id.info_cover);
+        secCover = findViewById(R.id.sec_cover);
         infoTitle = findViewById(R.id.info_title);
-        infoAlternative = findViewById(R.id.info_alternative);
-        infoAuthor = findViewById(R.id.info_author);
-        infoGenre = findViewById(R.id.info_genre);
-        infoStatus = findViewById(R.id.info_status);
+        infoExtra = findViewById(R.id.info_extra);
         infoPlot = findViewById(R.id.info_plot);
-        infoChaptersBtn = findViewById(R.id.chapter_btn);
+        chapterList = findViewById(R.id.chapter_list);
+        infoGenre = findViewById(R.id.info_genre);
+        scrollView = findViewById(R.id.scrollView);
+        scrollView.setSmoothScrollingEnabled(true);
+        Thread scrollChange = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                detectScroll();
+            }
+        });
+
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
         String manga_url = bundle.get("manga_url").toString();
         String site = bundle.get("site").toString();
-        info.getMangaInfo(this, coverImage, infoTitle, infoAlternative, infoAuthor, infoGenre,
-                infoStatus, infoPlot, infoChaptersBtn, progress, manga_url, site);
+        info.getMangaInfo(this, infoCover, secCover, infoTitle, infoExtra, infoPlot, chapterList, infoGenre, progress, manga_url, site);
+        //info.getMangaInfo(this, coverImage, infoTitle, infoAlternative, infoAuthor, infoGenre,
+                //infoStatus, infoPlot, infoChaptersBtn, progress, manga_url, site);
+    }
 
+    void detectScroll() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if (scrollY <= oldScrollY) {
+                        getSupportActionBar().show();
+                    }
+                    else {
+                        getSupportActionBar().hide();
+                    }
 
+                }
+            });
+        }
     }
 
 }

@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecentCardAdapter recentCardAdapter;
     private Recent recent = new Recent();
-    public static MangaReaderData mangaReaderData = new MangaReaderData();
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
 

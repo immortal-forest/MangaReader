@@ -19,10 +19,6 @@ import java.util.List;
 
 public class RecentCardAdapter extends RecyclerView.Adapter<RecentCardAdapter.RecentMangaHolder> {
 
-    public interface onItemClickListener {
-        void onItemClick(View v);
-    }
-
 
     private Context context;
     private List<RecentManga> mangas;
